@@ -1,6 +1,3 @@
-[submodule "programs"]
-	path = programs
-	url = https://github.com/perlytiara/CC-Tweaked-TurtsAndComputers.git
 [submodule "community/awesome-computercraft"]
 	path = community/awesome-computercraft
 	url = https://github.com/tomodachi94/awesome-computercraft.git

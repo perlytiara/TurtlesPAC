@@ -2,7 +2,7 @@
 
 Program archive: **programs** (main repo) and **community** (other repos) as submodules. Used as the **TurtlesPAC** submodule in [turtles.tips](https://github.com/perlytiara/turtles.tips).
 
-- **programs/** — CC-Tweaked-TurtsAndComputers (submodule).
+- **programs/** — Main program folder (regular files, not a submodule). Source: [CC-Tweaked-TurtsAndComputers](https://github.com/perlytiara/CC-Tweaked-TurtsAndComputers).
 - **community/** — Community repos as submodules. See [community/README.md](community/README.md).
 - **docs/** — Credits and archive docs.
 
