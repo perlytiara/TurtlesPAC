@@ -1,0 +1,42 @@
+[submodule "programs"]
+	path = programs
+	url = https://github.com/perlytiara/CC-Tweaked-TurtsAndComputers.git
+[submodule "community/awesome-computercraft"]
+	path = community/awesome-computercraft
+	url = https://github.com/tomodachi94/awesome-computercraft.git
+[submodule "community/john-turtle-programs"]
+	path = community/john-turtle-programs
+	url = https://github.com/johnneijzen/John-Turtle-Programs.git
+[submodule "community/equbuxu-mine"]
+	path = community/equbuxu-mine
+	url = https://github.com/Equbuxu/mine.git
+[submodule "community/sv443-computercraft-projects"]
+	path = community/sv443-computercraft-projects
+	url = https://github.com/Sv443/ComputerCraft-Projects.git
+[submodule "community/kepler155c-opus"]
+	path = community/kepler155c-opus
+	url = https://github.com/kepler155c/opus.git
+[submodule "community/louino2478-computercraft-programe"]
+	path = community/louino2478-computercraft-programe
+	url = https://github.com/louino2478/computercraft-programe.git
+[submodule "community/starkus-quarry"]
+	path = community/starkus-quarry
+	url = https://github.com/Starkus/quarry.git
+[submodule "community/ottomated-turtle-gambit"]
+	path = community/ottomated-turtle-gambit
+	url = https://github.com/ottomated/turtle-gambit.git
+[submodule "community/merlinlikethewizard-mastermine"]
+	path = community/merlinlikethewizard-mastermine
+	url = https://github.com/merlinlikethewizard/Mastermine.git
+[submodule "community/yazug-computercraft"]
+	path = community/yazug-computercraft
+	url = https://github.com/yazug/computercraft.git
+[submodule "community/zephira58-cc-tweaked-scripts"]
+	path = community/zephira58-cc-tweaked-scripts
+	url = https://github.com/Zephira58/CC-Tweaked-Scripts.git
+[submodule "community/fatboychummy-cc-dog"]
+	path = community/fatboychummy-cc-dog
+	url = https://github.com/Fatboychummy-CC/Dog.git
+[submodule "community/exa-byte-ccturtle-remote-controller"]
+	path = community/exa-byte-ccturtle-remote-controller
+	url = https://github.com/exa-byte/CCTurtleRemoteController.git
