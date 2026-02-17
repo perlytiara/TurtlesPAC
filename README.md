@@ -16,7 +16,7 @@ git clone --recurse-submodules https://github.com/perlytiara/TurtlesPAC.git
 
 Or clone turtles.tips and use `turtles.tips/TurtlesPAC` (submodule).
 
-## Update submodules
+## Update community submodules
 
 ```bash
 git submodule update --remote --merge
