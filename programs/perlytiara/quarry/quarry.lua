@@ -19,6 +19,7 @@ local sizeY -- Quarry removes this many layers of blocks including layer where t
 local bDebug= false
 
 local goUnload	-- Forward declaration
+local refuelSlot = 1      -- Turtle can fuel from any slot, but it will never dump this slot's contents so this is where fuel should be placed
 
 if (#tArgs == 1) then
 	sizeZ,sizeX,sizeY = tonumber(tArgs[1]),tonumber(tArgs[1]),256
@@ -49,6 +50,68 @@ local zSign = 1
 if sizeX < 0 then xSign = -1; sizeX = -sizeX end
 if sizeZ < 0 then zSign = -1; sizeZ = -sizeZ end
 
+local function isValuableMineral(itemName)
+	if itemName == nil then
+		return false
+	end
+
+	-- Explicitly reject copper drops/ores.
+	if string.find(itemName, "copper", 1, true) then
+		return false
+	end
+
+	-- Keep any ore block drops except copper.
+	if string.find(itemName, "ore", 1, true) then
+		return true
+	end
+
+	-- Keep common direct mineral drops from mining.
+	return
+		string.find(itemName, "raw_iron", 1, true) or
+		string.find(itemName, "raw_gold", 1, true) or
+		string.find(itemName, "coal", 1, true) or
+		string.find(itemName, "diamond", 1, true) or
+		string.find(itemName, "emerald", 1, true) or
+		string.find(itemName, "lapis", 1, true) or
+		string.find(itemName, "redstone", 1, true) or
+		string.find(itemName, "quartz", 1, true) or
+		string.find(itemName, "ancient_debris", 1, true)
+end
+
+local function isSlotValuable(slot)
+	local count = turtle.getItemCount(slot)
+	if count == 0 then
+		return false
+	end
+
+	local detail = turtle.getItemDetail(slot)
+	if detail == nil then
+		return false
+	end
+
+	return isValuableMineral(detail.name)
+end
+
+local function tossSelectedItem()
+	-- Prefer dropping upward/downward to avoid filling chest with junk if one is in front.
+	if turtle.dropUp() then
+		return true
+	end
+	if turtle.dropDown() then
+		return true
+	end
+	return turtle.drop()
+end
+
+local function purgeJunkFromInventory()
+	for i=1,16 do
+		if (i ~= refuelSlot) and (turtle.getItemCount(i) > 0) and (not isSlotValuable(i)) then
+			turtle.select(i)
+			tossSelectedItem()
+		end
+	end
+end
+
 -- Validate dimensions
 if (sizeX<2 or sizeZ<2 or sizeY<1) then
   print( "Dimensions given must be at least 2L x 2W x 1D. Efficiency is optimal if fixed depth is a multiple of 3." )
@@ -67,7 +130,6 @@ end
 
 local tX,tZ,tY = 0,0,0    -- Place the turtle starts is considered block 0,0,0 in the turtle's local coordinate system
 local xDir,zDir = 0,1     -- Turtle is considered as initially facing positive z direction, regardless of global world facing direction
-local refuelSlot = 1      -- Turtle can fuel from any slot, but it will never dump this slot's contents so this is where fuel should be placed
 
 -- Define turn functions before using them
 local function turnLeft()
@@ -448,9 +510,9 @@ function goUnload(bNeedsFuel)
 	
 	orient(0,-1)
 	
-	-- Drop items. Turtle will not empty the slot designated as the refuel slot.
+	-- Drop only valuable minerals into the chest in front.
 	for i=1,16 do
-		if (i ~= refuelSlot) then
+		if (i ~= refuelSlot) and isSlotValuable(i) then
 		  turtle.select(i)
 		  turtle.drop()
 		end
@@ -523,6 +585,8 @@ function goUnload(bNeedsFuel)
 end
 
 local function checkFreeSlot()
+  purgeJunkFromInventory()
+
   -- This function will return true if the designated refuelSlot is empty, because if there is no fuel reserve there, there
   -- is no reason not to allow item collection into this slot.
 	for i=1,16 do
@@ -838,12 +902,13 @@ if not goHome(0,0,0) then
 else
 	orient(0,-1)
   
-	-- Drop everything
-	-- Drop items. Turtle will not empty the slot designated as the refuel slot.
-  print("Unloading all contents...")
+	-- Drop only valuable minerals into the chest in front.
+  print("Unloading valuable minerals...")
 	for i=1,16 do
-		turtle.select(i)
-		turtle.drop()
+		if isSlotValuable(i) then
+			turtle.select(i)
+			turtle.drop()
+		end
 	end
 	orient(0,1)
 end
