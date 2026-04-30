@@ -16,6 +16,13 @@ local dir = path and fs.getDir(path) or ""
 local libPath = fs.combine(dir, "lib.lua")
 local digkit = dofile(libPath)
 
+local function run(op)
+  local ok, err = op()
+  if ok == false then
+    print("digkit: " .. tostring(err or "action failed"))
+  end
+end
+
 local function usage()
   print("digkit — simple turtle digs")
   print("  digkit dig       dig block in front")
@@ -34,12 +41,16 @@ if cmd == "help" or cmd == "?" or cmd == "-h" then
 end
 
 if cmd == "dig" then
-  digkit.dig()
+  run(function()
+    return digkit.dig()
+  end)
   return
 end
 
 if cmd == "go" or cmd == "1" then
-  digkit.digForward()
+  run(function()
+    return digkit.digForward()
+  end)
   return
 end
 
@@ -56,27 +67,37 @@ end
 if cmd == "portal" then
   local w = tonumber(args[2]) or 3
   local h = tonumber(args[3]) or 5
-  digkit.carvePortalOutlineBottomRight(w, h)
+  run(function()
+    return digkit.carvePortalOutlineBottomRight(w, h)
+  end)
   return
 end
 
 if cmd == "up" then
-  digkit.up()
+  run(function()
+    return digkit.up()
+  end)
   return
 end
 
 if cmd == "down" then
-  digkit.down()
+  run(function()
+    return digkit.down()
+  end)
   return
 end
 
 if cmd == "fwd" or cmd == "f" or cmd == "forward" then
-  digkit.forward()
+  run(function()
+    return digkit.forward()
+  end)
   return
 end
 
 if cmd == "back" or cmd == "b" then
-  digkit.back()
+  run(function()
+    return digkit.back()
+  end)
   return
 end
 

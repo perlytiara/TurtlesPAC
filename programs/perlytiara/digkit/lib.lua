@@ -8,6 +8,8 @@
 ]]
 
 local M = {}
+local MOVE_MAX_RETRIES = 30
+local MOVE_RETRY_SLEEP = 0.15
 
 local function hasTurtle()
   return pcall(function()
@@ -54,41 +56,80 @@ end
 
 function M.forward()
   M.assertTurtle()
+  local tries = 0
   while not turtle.forward() do
+    tries = tries + 1
     if turtle.detect() then
-      turtle.dig()
+      local dug = turtle.dig()
+      if not dug and turtle.detect() then
+        if tries >= MOVE_MAX_RETRIES then
+          return false, "blocked in front (unbreakable block or full inventory)"
+        end
+      end
     end
     turtle.attack()
+    if tries >= MOVE_MAX_RETRIES then
+      return false, "cannot move forward"
+    end
+    sleep(MOVE_RETRY_SLEEP)
   end
   return true
 end
 
 function M.back()
   M.assertTurtle()
+  local tries = 0
   while not turtle.back() do
+    tries = tries + 1
     turtle.attack()
+    if tries >= MOVE_MAX_RETRIES then
+      return false, "cannot move back (block behind cannot be dug)"
+    end
+    sleep(MOVE_RETRY_SLEEP)
   end
   return true
 end
 
 function M.up()
   M.assertTurtle()
+  local tries = 0
   while not turtle.up() do
+    tries = tries + 1
     if turtle.detectUp() then
-      turtle.digUp()
+      local dug = turtle.digUp()
+      if not dug and turtle.detectUp() then
+        if tries >= MOVE_MAX_RETRIES then
+          return false, "blocked above (unbreakable block or full inventory)"
+        end
+      end
     end
     turtle.attackUp()
+    if tries >= MOVE_MAX_RETRIES then
+      return false, "cannot move up"
+    end
+    sleep(MOVE_RETRY_SLEEP)
   end
   return true
 end
 
 function M.down()
   M.assertTurtle()
+  local tries = 0
   while not turtle.down() do
+    tries = tries + 1
     if turtle.detectDown() then
-      turtle.digDown()
+      local dug = turtle.digDown()
+      if not dug and turtle.detectDown() then
+        if tries >= MOVE_MAX_RETRIES then
+          return false, "blocked below (unbreakable block or full inventory)"
+        end
+      end
     end
     turtle.attackDown()
+    if tries >= MOVE_MAX_RETRIES then
+      return false, "cannot move down"
+    end
+    sleep(MOVE_RETRY_SLEEP)
   end
   return true
 end
@@ -108,8 +149,7 @@ end
 --- Clear the block ahead, then step forward one block.
 function M.digForward()
   M.dig()
-  M.forward()
-  return true
+  return M.forward()
 end
 
 --- Only step forward (digging if blocked).
@@ -134,28 +174,40 @@ function M.carvePortalOutlineBottomRight(width, height)
 
   -- Up the right side to top-right.
   for _ = 1, h - 1 do
-    M.up()
+    local ok, err = M.up()
+    if not ok then
+      return false, err
+    end
     M.dig()
   end
 
   -- Across the top from right to left.
   for _ = 1, w - 1 do
     M.turnLeft()
-    M.forward()
+    local ok, err = M.forward()
+    if not ok then
+      return false, err
+    end
     M.turnRight()
     M.dig()
   end
 
   -- Down the left side to bottom-left.
   for _ = 1, h - 1 do
-    M.down()
+    local ok, err = M.down()
+    if not ok then
+      return false, err
+    end
     M.dig()
   end
 
   -- Back across bottom to return to bottom-right start.
   for _ = 1, w - 1 do
     M.turnRight()
-    M.forward()
+    local ok, err = M.forward()
+    if not ok then
+      return false, err
+    end
     M.turnLeft()
     M.dig()
   end
