@@ -118,45 +118,53 @@ function M.step()
 end
 
 --[[
-  Carve a 2 wide × 3 tall hole in the wall ahead (nether portal interior).
-  Stand at the bottom-left corner of the hole (as seen facing the wall),
-  facing into the wall. Afterward the turtle returns to the same cell and heading.
+  Carve a rectangular portal outline in the wall ahead.
+  Default: 3 wide × 5 tall, starting at the bottom-right corner.
+  Start facing into the wall. The turtle returns to the same cell and heading.
 ]]
-function M.carvePortalHole()
+function M.carvePortalOutlineBottomRight(width, height)
   M.assertTurtle()
-  -- Bottom row: left, then right
+  local w = tonumber(width) or 3
+  local h = tonumber(height) or 5
+  if w < 1 then w = 1 end
+  if h < 1 then h = 1 end
+
+  -- Start at bottom-right and dig that first block.
   M.dig()
-  M.turnRight()
-  M.forward()
-  M.turnLeft()
-  M.dig()
-  M.turnRight()
-  M.back()
-  M.turnLeft()
-  -- Middle row
-  M.up()
-  M.dig()
-  M.turnRight()
-  M.forward()
-  M.turnLeft()
-  M.dig()
-  M.turnRight()
-  M.back()
-  M.turnLeft()
-  -- Top row
-  M.up()
-  M.dig()
-  M.turnRight()
-  M.forward()
-  M.turnLeft()
-  M.dig()
-  M.turnRight()
-  M.back()
-  M.turnLeft()
-  -- Return to start height
-  M.down()
-  M.down()
+
+  -- Up the right side to top-right.
+  for _ = 1, h - 1 do
+    M.up()
+    M.dig()
+  end
+
+  -- Across the top from right to left.
+  for _ = 1, w - 1 do
+    M.turnLeft()
+    M.forward()
+    M.turnRight()
+    M.dig()
+  end
+
+  -- Down the left side to bottom-left.
+  for _ = 1, h - 1 do
+    M.down()
+    M.dig()
+  end
+
+  -- Back across bottom to return to bottom-right start.
+  for _ = 1, w - 1 do
+    M.turnRight()
+    M.forward()
+    M.turnLeft()
+    M.dig()
+  end
+
   return true
+end
+
+function M.carvePortalHole()
+  return M.carvePortalOutlineBottomRight(3, 5)
 end
 
 return M

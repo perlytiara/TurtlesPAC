@@ -5,7 +5,8 @@
     digkit           — help
     digkit dig       — dig block in front only
     digkit go        — dig then forward one block
-    digkit portal    — carve 2×3 portal hole (see lib carvePortalHole)
+    digkit portal    — carve 3×5 portal outline from bottom-right start
+    digkit portal W H — same command with custom width/height
     digkit up|down|fwd|back — single safe move
 ]]
 
@@ -19,7 +20,8 @@ local function usage()
   print("digkit — simple turtle digs")
   print("  digkit dig       dig block in front")
   print("  digkit go        dig, then forward 1")
-  print("  digkit portal    carve 2×3 wall (nether portal air space)")
+  print("  digkit portal    carve 3×5 outline (start at bottom-right)")
+  print("  digkit portal W H   custom outline size")
   print("  digkit up|down|fwd|forward|back|left|right")
   print("  digkit update    redownload digkit from GitHub")
 end
@@ -52,7 +54,9 @@ if cmd == "update" then
 end
 
 if cmd == "portal" then
-  digkit.carvePortalHole()
+  local w = tonumber(args[2]) or 3
+  local h = tonumber(args[3]) or 5
+  digkit.carvePortalOutlineBottomRight(w, h)
   return
 end
 
