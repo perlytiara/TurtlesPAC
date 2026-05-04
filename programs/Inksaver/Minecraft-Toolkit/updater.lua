@@ -268,13 +268,13 @@ function main()
 	log("Free space before update: "..freeSpace.."\n")
 	
 	
-	local url = "https://raw.githubusercontent.com/perlytiara/Minecraft-Toolkit/main/"
+	local url = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/Inksaver/Minecraft-Toolkit/"
 	for _, file in ipairs(oldFileList) do 					
 		clear()
 		updated = updated + process(url, file, tmpDir, fileSizes)		-- download files from Github to tmp/
 	end
 	
-	url = "https://raw.githubusercontent.com/perlytiara/Computercraft-GUI/main/"
+	url = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/Inksaver/Computercraft-GUI/"
 	for _, file in ipairs(fileList) do 					
 		clear()
 		updated = updated + process(url, file, tmpDir, fileSizes)		-- download files from Github to tmp/

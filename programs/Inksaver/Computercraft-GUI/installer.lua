@@ -1,4 +1,4 @@
-local url = "https://raw.githubusercontent.com/perlytiara/Minecraft-Toolkit/refs/heads/main/updater.lua"
+local url = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/Inksaver/Minecraft-Toolkit/updater.lua"
 local response, message = http.get(url)
 local data = response.readAll()
 response.close()
