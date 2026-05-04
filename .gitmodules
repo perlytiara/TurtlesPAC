@@ -40,3 +40,6 @@
 [submodule "community/inksaver-minecraft-toolkit"]
 	path = community/inksaver-minecraft-toolkit
 	url = https://github.com/Inksaver/Minecraft-Toolkit.git
+[submodule "community/inksaver-computercraft-gui"]
+	path = community/inksaver-computercraft-gui
+	url = https://github.com/Inksaver/Computercraft-GUI.git

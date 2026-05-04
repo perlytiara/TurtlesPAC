@@ -16,5 +16,6 @@
 | [fatboychummy-cc-dog](fatboychummy-cc-dog/) | Fatboychummy-CC/Dog |
 | [exa-byte-ccturtle-remote-controller](exa-byte-ccturtle-remote-controller/) | exa-byte/CCTurtleRemoteController |
 | [inksaver-minecraft-toolkit](inksaver-minecraft-toolkit/) | Inksaver/Minecraft-Toolkit |
+| [inksaver-computercraft-gui](inksaver-computercraft-gui/) | Inksaver/Computercraft-GUI |
 
 Update all: from repo root run `git submodule update --remote --merge`.
