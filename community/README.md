@@ -15,5 +15,6 @@
 | [zephira58-cc-tweaked-scripts](zephira58-cc-tweaked-scripts/) | Zephira58/CC-Tweaked-Scripts |
 | [fatboychummy-cc-dog](fatboychummy-cc-dog/) | Fatboychummy-CC/Dog |
 | [exa-byte-ccturtle-remote-controller](exa-byte-ccturtle-remote-controller/) | exa-byte/CCTurtleRemoteController |
+| [inksaver-minecraft-toolkit](inksaver-minecraft-toolkit/) | Inksaver/Minecraft-Toolkit |
 
 Update all: from repo root run `git submodule update --remote --merge`.

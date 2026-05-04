@@ -37,3 +37,6 @@
 [submodule "community/exa-byte-ccturtle-remote-controller"]
 	path = community/exa-byte-ccturtle-remote-controller
 	url = https://github.com/exa-byte/CCTurtleRemoteController.git
+[submodule "community/inksaver-minecraft-toolkit"]
+	path = community/inksaver-minecraft-toolkit
+	url = https://github.com/Inksaver/Minecraft-Toolkit.git
