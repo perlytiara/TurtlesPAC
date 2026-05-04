@@ -1,4 +1,4 @@
-version = 20260119.1700
+version = 20260504.2210
 --[[
 	Last edited: see version YYYYMMDD.HHMM
 	This will add all GUI toolkit (tk3) files and libraries
@@ -106,7 +106,7 @@ function getVersion(line, fileName)
 		local start = line:find("=")
 		
 		if start ~= nil then -- found
-			version = tonumber(line:sub(start + 1))
+			version = tonumber(line:sub(start + 1)) or 0
 		end
 	end
 	
@@ -131,11 +131,12 @@ function isNewer(fileName, tmpDir)
 		if fs.exists(tempFile) then								-- should exist in tmp folder
 			new = fs.open(tempFile, "r")
 			newOpen = true
-			local oldVer = getVersion(old.readLine(), fileName)	-- pass line 1 eg version = 20250915.1800
-			log("Existing "..fileName.." version: "..oldVer)
-			
-			local newVer = getVersion(new.readLine(), fileName)
-			log("Downloaded "..fileName.." version: "..newVer)
+			local oldLine = old and old.readLine() or nil
+			local newLine = new and new.readLine() or nil
+			local oldVer = getVersion(oldLine, fileName)
+			local newVer = getVersion(newLine, fileName)
+			log("Existing "..fileName.." version: "..tostring(oldVer))
+			log("Downloaded "..fileName.." version: "..tostring(newVer))
 			if oldVer > 0 and newVer > 0 then					-- both have version numbers
 				if newVer > oldVer then
 					move = true
