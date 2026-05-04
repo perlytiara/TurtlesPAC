@@ -101,7 +101,7 @@ function goHome(x, y)
 end
 
 function main()
-	local url = "https://raw.githubusercontent.com/Inksaver/Computercraft-GUI/main/"
+	local url = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/perlytiara/Computercraft-GUI/"
 	if not checkLibs("lib", "clsTurtle") then
 		-- use Github get to download clsTurtle to libs folder
 		getFileFromGithub(url, "lib/clsTurtle.lua")

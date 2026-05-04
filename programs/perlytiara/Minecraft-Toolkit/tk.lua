@@ -32,7 +32,7 @@ local barrelItems = nil	-- list of items and the barrels where they are usually 
 local chestItems = nil	-- list of items and the chests where they are usually found
 
 local function checkFileSystem()
-	local url = "https://raw.githubusercontent.com/Inksaver/Computercraft-GUI/main/"
+	local url = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/perlytiara/Computercraft-GUI/"
 	
 	local lib = {}
 	

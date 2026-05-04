@@ -62,8 +62,8 @@ local brick = "minecraft:nether_brick" -- pre 1.16+ name
 
 
 local function checkFileSystem()
-	local oldurl = "https://raw.githubusercontent.com/Inksaver/Minecraft-Toolkit/main/"
-	local url = "https://raw.githubusercontent.com/Inksaver/Computercraft-GUI/main/"
+	local oldurl = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/perlytiara/Minecraft-Toolkit/"
+	local url = "https://raw.githubusercontent.com/perlytiara/TurtlesPAC/main/programs/perlytiara/Computercraft-GUI/"
 	
 	local lib = {}
 	
